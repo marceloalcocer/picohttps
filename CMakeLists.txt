@@ -87,12 +87,23 @@ target_include_directories(
     #
     PRIVATE ${CMAKE_CURRENT_LIST_DIR}
 
+    # Mbed TLS port includes
+    #
+    #   Internal headers for the Mbed TLS port provided with lwIP. They are not
+    #   typically in the pre-processor search path, but are required when using
+    #   underlying Mbed TLS interfaces not exposed by the Mbed TLS port (more
+    #   specifically, casting for an `mbedtls_ssl_set_hostname` call for Server
+    #   Name Indication TLS extension configuration).
+    #
+    #   See the `connect_to_host` function in `picohttps.c` for details.
+    #
+    ${PICO_LWIP_PATH}/src/apps/altcp_tls/
+
 )
 
 # Configure linker
 #
 #   To link (statically) to additional libraries files (i.e. external to Pico SDK)
-#
 #
 #   https://cmake.org/cmake/help/latest/command/target_link_libraries.html
 #

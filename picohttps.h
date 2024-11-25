@@ -119,6 +119,12 @@
 //
 typedef err_t lwip_err_t;
 
+// Mbed TLS errors
+//
+//  typedef here to make source of error code more explicit
+//
+typedef int mbedtls_err_t;
+
 // TCP connection callback argument
 //
 //  All callbacks associated with lwIP TCP (+ TLS) connections can be passed a

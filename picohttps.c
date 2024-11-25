@@ -17,11 +17,14 @@
 // lwIP
 #include "lwip/dns.h"               // Hostname resolution
 #include "lwip/altcp_tls.h"         // TCP + TLS (+ HTTP == HTTPS)
+#include "altcp_tls_mbedtls_structs.h"
 #include "lwip/prot/iana.h"         // HTTPS port number
+
+// Mbed TLS
+#include "mbedtls/ssl.h"            // Server Name Indication TLS extension
 
 // Pico HTTPS request example
 #include "picohttps.h"              // Options, macros, forward declarations
-
 
 
 /* Main ***********************************************************************/
@@ -222,6 +225,46 @@ bool connect_to_host(ip_addr_t* ipaddr, struct altcp_pcb** pcb){
     *pcb = altcp_tls_new(config, IPADDR_TYPE_V4);
     cyw43_arch_lwip_end();
     if(!(*pcb)){
+        altcp_free_config(config);
+        return false;
+    }
+
+    // Configure hostname for Server Name Indication extension
+    //
+    //  Many servers nowadays require clients to support the [Server Name
+    //  Indication[wiki-sni] (SNI) TLS extension. In this extension, the
+    //  hostname is included in the in the ClientHello section of the TLS
+    //  handshake.
+    //
+    //  Mbed TLS provides client-side support for SNI extension
+    //  (`MBEDTLS_SSL_SERVER_NAME_INDICATION` option), but requires the
+    //  hostname in order to do so. Unfortunately, the Mbed TLS port supplied
+    //  with lwIP (ALTCP TLS) does not currently provide an interface to pass
+    //  the hostname to Mbed TLS. This is a [known issue in lwIP][gh-lwip-pr].
+    //
+    //  As a workaround, the hostname can instead be set using the underlying
+    //  Mbed TLS interface (viz. `mbedtls_ssl_set_hostname` function). This is
+    //  somewhat inelegant as it tightly couples our application code to the
+    //  underlying TLS library (viz. Mbed TLS). Given that the Pico SDK already
+    //  tightly couples us to lwIP though, and that any fix is unlikely to be
+    //  backported to the lwIP version in the Pico SDK, this doesn't feel like
+    //  too much of a crime…
+    //
+    //  [wiki-sni]: https://en.wikipedia.org/wiki/Server_Name_Indication
+    //  [gh-lwip-pr]: https://github.com/lwip-tcpip/lwip/pull/47/commits/c53c9d02036be24a461d2998053a52991e65b78e
+    //
+    cyw43_arch_lwip_begin();
+    mbedtls_err_t mbedtls_err = mbedtls_ssl_set_hostname(
+        &(
+            (
+                (altcp_mbedtls_state_t*)((*pcb)->state)
+            )->ssl_context
+        ),
+        PICOHTTPS_HOSTNAME
+    );
+    cyw43_arch_lwip_end();
+    if(mbedtls_err){
+        altcp_free_pcb(*pcb);
         altcp_free_config(config);
         return false;
     }
