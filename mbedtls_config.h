@@ -1,6 +1,6 @@
-/* Mbed-TLS configuration for Pico HTTPS example ******************************
+/* Mbed TLS configuration for Pico HTTPS example ******************************
  *                                                                            *
- *  Configuration for the Mbed-TLS library included in the Pico SDK and       *
+ *  Configuration for the Mbed TLS library included in the Pico SDK and       *
  *  required for the Pico HTTPS example.                                      *
  *                                                                            *
  *  N.b. Not all options are strictly required; this is just an example       *

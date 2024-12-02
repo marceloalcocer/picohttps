@@ -83,7 +83,7 @@ target_include_directories(
     #
     #   - picohttps.h               # Local project header
     #   - lwipopts.h                # lwIP library configuration
-    #   - mbedtls_config.h          # Mbed-TLS library configuration
+    #   - mbedtls_config.h          # Mbed TLS library configuration
     #
     PRIVATE ${CMAKE_CURRENT_LIST_DIR}
 
@@ -129,13 +129,13 @@ target_link_libraries(
     #
     #   Required for HTTPS (= TCP + TLS + HTTP).
     #
-    #   A port of the Mbed-TLS library is included in lwIP, and therefore in
+    #   A port of the Mbed TLS library is included in lwIP, and therefore in
     #   the Pico SDK. __N.b. this is not a full MbedTLS distribution__, but
-    #   rather simply provides an lwIP compatible interface to Mbed-TLS.
+    #   rather simply provides an lwIP compatible interface to Mbed TLS.
     #
     pico_lwip_mbedtls
     #
-    #   A full Mbed-TLS distributiom is however included in the Pico SDK
+    #   A full Mbed TLS distributiom is however included in the Pico SDK
     #   (currently as a submodule). This is currently (Pico SDK 1.5.0) not well
     #   documented however.
     #

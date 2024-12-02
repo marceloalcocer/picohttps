@@ -149,15 +149,15 @@
 
 // Enable ALTCP-compatible TLS interface
 //
-//  A port of the Mbed-TLS library is included in lwIP. __N.b. this is not a
+//  A port of the Mbed TLS library is included in lwIP. __N.b. this is not a
 //  full MbedTLS distribution__, but rather simply provides an lwIP compatible
-//  interface to Mbed-TLS.
+//  interface to Mbed TLS.
 //
 #define LWIP_ALTCP_TLS_MBEDTLS      1
 
 
 
-/* Mbed-TLS options ***********************************************************/
+/* Mbed TLS options ***********************************************************/
 
 // Require TLS authentication (certificate)
 //
