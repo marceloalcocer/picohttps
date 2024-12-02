@@ -120,7 +120,7 @@
 #define TCP_MSS                     1460
 
 // Window size
-#define TCP_WND                     (8 * TCP_MSS)
+#define TCP_WND                     (16 * TCP_MSS)
 
 // Send buffer size
 #define TCP_SND_BUF                 (8 * TCP_MSS)
