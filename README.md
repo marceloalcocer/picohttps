@@ -25,7 +25,7 @@ The following minimum build-time configuration is required for correct execution
 * In [picohttps.h](picohttps.h);
   * Set [PICOHTTPS_WIFI_SSID](picohttps.h#L28) to your wireless network SSID
   * Set [PICOHTTPS_HOSTNAME](picohttps.h#L48) to the web server hostname
-  * Set [PICOHTTPS_CA_ROOT_CERT](picohttps.h#L64) to the CA root certificate used to sign the web server's HTTPS certificate
+  * Set [PICOHTTPS_CA_ROOT_CERT](picohttps.h#L64) to the CA certificate used to sign the web server's HTTPS certificate
 * In [CMakeLists.txt](CMakeLists.txt);
   * Set the [path to your Pico SDK installation](CMakeLists.txt#L18)
 
@@ -66,7 +66,7 @@ The example application performs the following actions in sequence;
 6. Send HTTP request over TCP + TLS
 7. Read HTTP response over TCP + TLS
 
-The function calls from [picohttps.c:main](picohttps.c#L29) which perform these actions are not deeply nested, and are declared and documented in [picohttps.h](picohttps.h).
+The function calls from [picohttps.c:main](picohttps.c#L36) which perform these actions are not deeply nested, and are declared and documented in [picohttps.h](picohttps.h).
 
 ### Libraries
 
@@ -108,7 +108,7 @@ Library functionality used by the example application:
   * All functions return booleans (`true` on success) — no error codes
   * Errors printed to stdout
 * Functions used as lwIP callbacks are prefixed with `callback_` for clarity. No [lock acquisition][pico-lwip-lock] is required when calling into the lwIP API from these.
-* The [single common argument][lwip-arg] passed to lwIP connection callbacks is of type `struct altcp_callback_arg` and is used for accessing/modifying application state from callbacks. See [struct altcp_callback_arg declaration](picohttps.h#L134) for further documentation.
+* The [single common argument][lwip-arg] passed to lwIP connection callbacks is of type `struct altcp_callback_arg` and is used for accessing/modifying application state from callbacks. See [struct altcp_callback_arg declaration](picohttps.h#L154) for further documentation.
 * Dynamically allocated variables;
   * TCP + TLS connection configuration (`struct altcp_tls_config config`): Allocated by lwIP API call (`altcp_tls_create_config_client()`), freed by lwIP API call (`altcp_close()`)
   * TCP + TLS connection PCB (`struct altcp_pcb pcb`): Allocated by lwIP API call (`altcp_tls_new()`), freed by lwIP API call (`altcp_tls_free_config()`)
@@ -124,7 +124,7 @@ Library functionality used by the example application:
 ## References
 
 * [Pico SDK documentation](https://www.raspberrypi.com/documentation/pico-sdk/)
-* [Pico SDk source](https://github.com/raspberrypi/pico-sdk/blob/1.5.0)
+* [Pico SDK source](https://github.com/raspberrypi/pico-sdk/blob/1.5.0)
 * [lwIP documentation](https://www.nongnu.org/lwip/2_1_x/index.html)
 * [lwIP source](https://github.com/lwip-tcpip/lwip/blob/239918ccc173cb2c2a62f41a40fd893f57faf1d6)
 * [lwIP Application Developers Manual](https://lwip.fandom.com/wiki/Category:LwIP_Application_Developers_Manual)
