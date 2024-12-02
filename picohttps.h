@@ -102,6 +102,13 @@
 //
 #define PICOHTTPS_HTTP_RESPONSE_POLL_INTERVAL       100             // ms
 
+// Mbed TLS debug levels
+//
+//  Seemingly not defined in Mbed TLS‽
+//
+//  https://github.com/Mbed-TLS/mbedtls/blob/62e79dc913325a18b46aaea554a2836a4e6fc94b/include/mbedtls/debug.h#L141
+//
+#define PICOHTTPS_MBEDTLS_DEBUG_LEVEL               3
 
 
 /* Macros *********************************************************************/

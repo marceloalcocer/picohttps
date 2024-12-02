@@ -166,7 +166,6 @@
 #define ALTCP_MBEDTLS_AUTHMODE      MBEDTLS_SSL_VERIFY_REQUIRED
 
 
-
 /* Network interface options **************************************************/
 
 // Disable NETIF API support
@@ -229,8 +228,13 @@
 
 /* Debug options **************************************************************/
 
-// Enable debugging
-#define LWIP_DEBUG                  1
+// Enable lwIP debugging
+//#define LWIP_DEBUG                  1
 
+// Enable ALTCP-compatible TLS port debugging
+//#define ALTCP_MBEDTLS_DEBUG         LWIP_DBG_ON
+
+// Enable Mbed TLS debugging
+//#define ALTCP_MBEDTLS_LIB_DEBUG     LWIP_DBG_ON
 
 #endif //_LWIPOPTS_EXAMPLE_COMMONH_H

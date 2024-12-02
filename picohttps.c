@@ -22,6 +22,10 @@
 
 // Mbed TLS
 #include "mbedtls/ssl.h"            // Server Name Indication TLS extension
+#ifdef MBEDTLS_DEBUG_C
+#include "mbedtls/debug.h"          // Mbed TLS debugging
+#endif //MBEDTLS_DEBUG_C
+#include "mbedtls/check_config.h"
 
 // Pico HTTPS request example
 #include "picohttps.h"              // Options, macros, forward declarations
@@ -66,7 +70,11 @@ void main(void){
     cyw43_arch_lwip_end();
     printf("Resolved %s (%s)\n", PICOHTTPS_HOSTNAME, char_ipaddr);
 
+
     // Establish TCP + TLS connection with server
+#ifdef MBEDTLS_DEBUG_C
+    mbedtls_debug_set_threshold(PICOHTTPS_MBEDTLS_DEBUG_LEVEL);
+#endif //MBEDTLS_DEBUG_C
     struct altcp_pcb* pcb = NULL;
     printf("Connecting to https://%s:%d\n", char_ipaddr, LWIP_IANA_PORT_HTTPS);
     if(!connect_to_host(&ipaddr, &pcb)){
