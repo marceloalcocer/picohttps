@@ -55,8 +55,8 @@
 
 // Certificate authority root certificate
 //
-//  CA root certificate used to sign the HTTP server's certificate (DER
-//  format, char array representation).
+//  CA certificate used to sign the HTTP server's certificate. DER or PEM
+//  formats (char array representation).
 //
 //  This is most readily obtained via inspection of the server's certificate
 //  chain, e.g. in a browser.
@@ -66,6 +66,13 @@
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,     \
     0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f      \
 }
+//
+//  or
+//
+//#define PICOHTTPS_CA_ROOT_CERT                                       \
+//"-----BEGIN CERTIFICATE-----\n"                                      \
+//"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\n" \
+//"-----END CERTIFICATE-----\n"
 
 // TCP + TLS connection establishment polling interval
 //
