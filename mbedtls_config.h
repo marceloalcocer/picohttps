@@ -99,6 +99,7 @@
 // Ciphers
 #define MBEDTLS_CIPHER_C                            // Symmetric cipher generic code
 #define MBEDTLS_AES_C                               // AES
+#define MBEDTLS_GCM_C                               // Galois/Counter mode
 
 // Parsers
 #define MBEDTLS_ASN1_PARSE_C                        // ASN1
